@@ -20,7 +20,7 @@ const LoginForm = ({ setLogin, setError }) => {
     submitted: false,
   });
 
-  const [isHoveringShowPassword, setIsHoveringShowPassword] = useState(false);
+  const displayTooltip = !state.showPassword ? "Warning: this will display your password on screen." : "Release click to hide password";
 
   const cancelLogin = (event) => {
     event.preventDefault();
@@ -50,27 +50,17 @@ const LoginForm = ({ setLogin, setError }) => {
     setState(values => ({ ...values, [name]: value }));
   }
 
-  const handleClickShowPassword = (event) => {
-    event.preventDefault();
-    setState(values => ({ ...values, showPassword: !state.showPassword }));
-  };
+  // const handleMouseOverPassword = (event) => {
+  //   event.preventDefault();
+  //   const displayText = state.showPassword ? "Show password as plain text. Warning: this will display your password on the screen." : "Hide password";
+  //   setState(values => ({ ...values, showPassword: true }));
+  // }
 
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
-
-  const handleMouseOverPassword = (event) => {
-    event.preventDefault();
-    const displayText = state.showPassword ? "Show password as plain text. Warning: this will display your password on the screen." : "Hide password";
-
-  }
-
-  const handleMouseOutPassword = (event) => {
-    event.preventDefault();
-    const displayText = state.showPassword ? "Show password as plain text. Warning: this will display your password on the screen." : "Hide password";
-    console.dir(event.target);
-
-  }
+  // const handleMouseOutPassword = (event) => {
+  //   event.preventDefault();
+  //   const displayText = state.showPassword ? "Show password as plain text. Warning: this will display your password on the screen." : "Hide password";
+  //   setState(values => ({ ...values, showPassword: false }));
+  // }
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -99,24 +89,66 @@ const LoginForm = ({ setLogin, setError }) => {
 
   }
 
-  console.log('in component', state);
+  // console.log('in component', state);
 
   return (
     <form className="login-form" onSubmit={handleSubmit}>
       <h1>Login</h1>
       <div className="container">
         <label htmlFor="current-username"><b>Username</b></label>
-        <input type="text" id="current-username" placeholder="Enter username (can be also be your email!)" name="current-username" onChange={handleChange} required />
+        <input type="text" id="current-username" placeholder="Enter username (email OK)" name="current-username" onChange={handleChange} required autoFocus />
         <label htmlFor="current-password"><b>Password</b></label>
         <div className='password-container'>
-          <input type={state.showPassword ? "text" : "password"} id="current-password" placeholder="Enter password" name="current-password" onChange={handleChange} required />
+          <input
+            type={state.showPassword ? "text" : "password"}
+            id="current-password" placeholder="Enter password" name="current-password"
+            onChange={handleChange}
+            // * mouse over to show password feature *
+            // * test user preference first*
+            // onMouseOver={(e) => {
+            //   e.preventDefault();
+            //   setState(values => ({ ...values, showPassword: true }));
+            // }
+            // }
+            // onMouseOut={(e) => {
+            //   e.preventDefault();
+            //   setState(values => ({ ...values, showPassword: false }));
+            // }}
+            required
+          />
+          {/* Eye Icon */}
           <button
-            className='mui'
-            onClick={handleClickShowPassword}
-            onMouseDown={handleMouseDownPassword}
-            onMouseOver={handleMouseOverPassword}
+            className='mui tooltip'
+            type='button'
+            // onClick={handleClickShowPassword}
+            onKeyDown={(e) => {
+              e.preventDefault();
+              if (e.code === 'Space' || e.code === 'Enter') setState(values => ({ ...values, showPassword: true }));
+              if (e.code === 'Tab') document.getElementById('login').focus();
+              if (e.shiftKey && e.code === 'Tab') document.getElementById('current-password').focus();
+            }}
+            onKeyUp={(e) => {
+              e.preventDefault();
+              if (e.code === 'Space' || e.code === 'Enter') setState(values => ({ ...values, showPassword: false }))
+            }}
+            onMouseDown={(e) => {
+              e.preventDefault();
+              setState(values => ({ ...values, showPassword: true }));
+            }}
+            onMouseUp={(e) => {
+              e.preventDefault();
+              setState(values => ({ ...values, showPassword: false }));
+            }}
           >
-            {state.showPassword ? <Visibility aria-label="Hide password" /> : <VisibilityOff aria-label="Show password as plain text. Warning: this will display your password on the screen." />}
+            {state.showPassword ?
+              <Visibility className="tooltip" aria-label="Hide password" /> :
+              <VisibilityOff
+                className="tooltip"
+                aria-label="Show password as plain text. Warning: this will display your password on the screen." />}
+
+            <span className="tooltiptext">
+              {displayTooltip}
+            </span>
           </button>
         </div>
         <button id="login" type="submit">Login</button>
@@ -131,7 +163,7 @@ const LoginForm = ({ setLogin, setError }) => {
         <button type="button" className="cancel-button" onClick={cancelLogin}>Cancel</button>
         <span className="psw"><a href="#">Forgot password?</a></span>
       </div>
-    </form>
+    </form >
   )
 }
 

@@ -202,3 +202,47 @@ span.psw a {
     bottom: 10em;
   }
 }
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 200px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  /* Position the tooltip */
+  position: absolute;
+  top: 4em;
+  left: -2em;
+  z-index: 3;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+.showToolTip {
+  visibility: visible;
+}
+
+.hideToolTip {
+  visibility: hidden;
+  width: 200px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  /* z-index: 1; */
+}
