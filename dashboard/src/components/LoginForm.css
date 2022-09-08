@@ -1,0 +1,204 @@
+/* Bordered form */
+.login-form {
+  background-color: #333;
+  border: 3px solid #f1f1f1;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Full-width inputs */
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  display: inline-block;
+  font-size: large;
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+}
+
+/* * note only: a basic email validation for form entry */
+input[type="email"]:not(:placeholder-shown):invalid {
+  color: red;
+}
+
+/* Set a style for all buttons */
+button {
+  /* background-color: #04AA6D; */
+  background-color: #2196f3;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+/* Add a hover effect for buttons */
+button:hover {
+  opacity: 0.8;
+}
+
+.submitted {
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+/* Extra style for the cancel button (red) */
+.cancel-button {
+  width: auto;
+  padding: 10px 18px;
+  background-color: #f44336;
+}
+
+/* Avatar image */
+img.avatar {
+  width: 40%;
+  border-radius: 50%;
+}
+
+/* Add padding to containers */
+.container {
+  padding: 16px;
+  border-radius: 0px 0px 12px 12px;
+}
+
+.password-container {
+  display: flex;
+}
+
+button.mui {
+  background-color: white;
+  color: gray;
+  display: flex;
+  padding: 14px;
+  margin-left: 12px;
+  width: auto;
+}
+
+.more-options {
+  display: flex;
+  flex-direction: column;
+}
+
+/* The "Forgot password" text */
+span.psw {
+  /* float: right; */
+  align-self: flex-end;
+  padding-top: 16px;
+}
+span.psw a {
+  /* color: #f1f1f1; */
+  color: #333;
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+  span.psw {
+    display: block;
+    float: none;
+  }
+  .cancel-button {
+    width: 100%;
+  }
+}
+
+/* The checkbox container */
+.checkbox-container {
+  display: block;
+  position: relative;
+  text-align: end;
+  padding-left: 35px;
+  margin: 10px 0px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.checkbox-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.check-mark {
+  box-sizing: content-box;
+  border: 1px solid #ccc;
+  position: absolute;
+  top: 0;
+  right: 150px;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.checkbox-container:hover input ~ .check-mark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.checkbox-container input:checked ~ .check-mark {
+  background-color: #2196f3;
+}
+
+/* Create the check-mark/indicator (hidden when not checked) */
+.check-mark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the check-mark when checked */
+.checkbox-container input:checked ~ .check-mark:after {
+  display: block;
+}
+
+/* Style the check-mark/indicator */
+.checkbox-container .check-mark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+/* Style the check-mark/indicator on focus (when tabbed) */
+.checkbox-container input:focus + .check-mark {
+  box-sizing: content-box;
+  background-color: #2196f3;
+  border: 3px dotted white;
+}
+
+/* Style the check-mark/indicator on focus & checked (when tabbed & selected) */
+.checkbox-container input:focus + .check-mark:after {
+  border: solid white;
+  border-width: 0 3px 3px 0;
+}
+
+.error {
+  bottom: 5em;
+  position: absolute;
+  z-index: 1;
+}
+
+@media screen and (max-width: 500px) {
+  .error {
+    bottom: 10em;
+  }
+}
