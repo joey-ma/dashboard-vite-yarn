@@ -20,13 +20,15 @@ const LoginForm = ({ setLogin, setError }) => {
     submitted: false,
   });
 
-  const displayTooltip = !state.showPassword ? "Warning: this will display your password on screen." : "Release click to hide password";
+  const displayTooltip = !state.showPassword ? "Warning: this will display your password on screen." : "Release to hide password";
 
   const cancelLogin = (event) => {
     event.preventDefault();
 
-    handleChange({ target: { name: { 'current-username': '' } } })
-    handleChange({ target: { name: { 'current-password': '' } } })
+    const username = document.getElementById('current-username');
+    username.value = '';
+    username.focus();
+    document.getElementById('current-password').value = '';
 
     setState(values => ({
       ...values,
@@ -50,18 +52,6 @@ const LoginForm = ({ setLogin, setError }) => {
     setState(values => ({ ...values, [name]: value }));
   }
 
-  // const handleMouseOverPassword = (event) => {
-  //   event.preventDefault();
-  //   const displayText = state.showPassword ? "Show password as plain text. Warning: this will display your password on the screen." : "Hide password";
-  //   setState(values => ({ ...values, showPassword: true }));
-  // }
-
-  // const handleMouseOutPassword = (event) => {
-  //   event.preventDefault();
-  //   const displayText = state.showPassword ? "Show password as plain text. Warning: this will display your password on the screen." : "Hide password";
-  //   setState(values => ({ ...values, showPassword: false }));
-  // }
-
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -84,12 +74,9 @@ const LoginForm = ({ setLogin, setError }) => {
       console.log('no match found for entered username and password');
       setError("no match found")
     }
-
-
-
   }
 
-  // console.log('in component', state);
+  // console.log('in LoginForm, state:', state);
 
   return (
     <form className="login-form" onSubmit={handleSubmit}>
